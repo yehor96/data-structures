@@ -87,10 +87,13 @@ public class ArrayQueue implements Queue {
     private void ensureCapacity() {
         if (tail == array.length) {
             Object[] newArray = new Object[array.length * 2];
-            for (int i = head, j = 0; i < tail; i++, j++) {
+            int j = 0;
+            for (int i = head; i < tail; i++, j++) {
                 newArray[j] = array[i];
             }
             array = newArray;
+            head = 0;
+            tail = j;
         }
     }
 }
