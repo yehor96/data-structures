@@ -44,7 +44,7 @@ class ArrayQueueTest {
 
         try {
             queue.dequeue();
-            fail("Exception was't thrown");
+            fail("Exception was not thrown");
         } catch (Exception e) {
             assertEquals(IllegalStateException.class, e.getClass());
             assertEquals("Unable to dequeue on empty queue", e.getMessage());
@@ -77,7 +77,7 @@ class ArrayQueueTest {
 
         try {
             queue.peek();
-            fail("Exception was't thrown");
+            fail("Exception was not thrown");
         } catch (Exception e) {
             assertEquals(IllegalStateException.class, e.getClass());
             assertEquals("Unable to peek on empty queue", e.getMessage());
