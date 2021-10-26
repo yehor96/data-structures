@@ -1,6 +1,15 @@
 package com.luxoft.datastructures.queue;
 
 public class ArrayQueue implements Queue {
+
+    public ArrayQueue() {
+
+    }
+
+    public ArrayQueue(int size) {
+
+    }
+
     @Override
     public void enqueue(Object value) {
         
