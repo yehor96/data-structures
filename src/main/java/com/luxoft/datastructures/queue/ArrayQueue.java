@@ -2,46 +2,95 @@ package com.luxoft.datastructures.queue;
 
 public class ArrayQueue implements Queue {
 
-    public ArrayQueue() {
+    private Object[] array;
+    private int head = 0;
+    private int tail = 0;
 
+    public ArrayQueue() {
+        this(100);
     }
 
     public ArrayQueue(int size) {
-
+        array = new Object[size];
     }
 
     @Override
     public void enqueue(Object value) {
-        
+        ensureCapacity();
+        array[tail++] = value;
     }
 
     @Override
     public Object dequeue() {
-        return null;
+        if (isEmpty()) {
+            throw new IllegalStateException("Unable to dequeue on empty queue");
+        }
+        Object firstElement = array[head++];
+        if (isEmpty()) {
+            clear();
+        }
+        return firstElement;
     }
 
     @Override
     public Object peek() {
-        return null;
+        if (isEmpty()) {
+            throw new IllegalStateException("Unable to peek on empty queue");
+        }
+        return array[head];
     }
 
     @Override
     public int size() {
-        return 0;
+        return tail - head;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return head == tail;
     }
 
     @Override
     public boolean contains(Object value) {
+        if (value == null) {
+            return false;
+        }
+
+        for (int i = head; i < tail; i++) {
+            if (array[i].equals(value)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public void clear() {
+        head = 0;
+        tail = 0;
+    }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        for (int i = head; i < tail; i++) {
+            stringBuilder.append(array[i]);
+            if (i + 1 != tail) {
+                stringBuilder.append(", ");
+            }
+        }
+        stringBuilder.append("]");
+
+        return stringBuilder.toString();
+    }
+
+    private void ensureCapacity() {
+        if (tail == array.length) {
+            Object[] newArray = new Object[array.length * 2];
+            for (int i = head, j = 0; i < tail; i++, j++) {
+                newArray[j] = array[i];
+            }
+            array = newArray;
+        }
     }
 }

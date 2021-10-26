@@ -144,7 +144,7 @@ class ArrayQueueTest {
     @Test
     void testToStringFilledQueue() {
         ArrayQueue queue = new ArrayQueue();
-        String expectedToString = "[A], [B], [C]";
+        String expectedToString = "[A, B, C]";
         queue.enqueue("A");
         queue.enqueue("B");
         queue.enqueue("C");
