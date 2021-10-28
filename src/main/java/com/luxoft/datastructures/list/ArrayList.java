@@ -27,9 +27,7 @@ public class ArrayList implements List {
         ensureCapacity();
 
         if (index < size) {
-            for (int i = size - 1; i >= index; i--) {
-                array[i + 1] = array[i];
-            }
+            System.arraycopy(array, index, array, index + 1, size - index);
         }
         array[index] = value;
         size++;
@@ -40,9 +38,7 @@ public class ArrayList implements List {
         verifyIndexWithinArrayBounds(index, size - 1);
 
         Object removed = array[index];
-        for (int i = index; i < size - 1; i++) {
-            array[i] = array[i + 1];
-        }
+        System.arraycopy(array, index + 1, array, index, size - index);
         array[size - 1] = null;
         size--;
         return removed;
