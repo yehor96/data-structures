@@ -439,4 +439,18 @@ class ArrayListTest {
         assertEquals("[A, B]", list.toString());
     }
 
+    @Test
+    void testCapacity() {
+        ArrayList list = new ArrayList(2);
+        list.add("A");
+        list.add("B");
+
+        list.add("C");
+
+        assertEquals(3, list.size());
+        assertEquals("A", list.get(0));
+        assertEquals("B", list.get(1));
+        assertEquals("C", list.get(2));
+    }
+
 }
