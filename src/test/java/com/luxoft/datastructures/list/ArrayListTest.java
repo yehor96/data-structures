@@ -2,15 +2,13 @@ package com.luxoft.datastructures.list;
 
 import org.junit.jupiter.api.Test;
 
+import static com.luxoft.datastructures.list.ArrayList.INVALID_RANGE_EXCEPTION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class ArrayListTest {
-
-    private static final String INVALID_RANGE_EXCEPTION_MESSAGE =
-            "Unable to process value at index %d. Available range: [0, %d]";
 
     @Test
     void testAddElement() {
@@ -60,7 +58,7 @@ class ArrayListTest {
     }
 
     @Test
-    void testAddElementAtIndex0() {
+    void testAddElementAtFirstIndex() {
         ArrayList list = new ArrayList();
         list.add("A");
         list.add("B");
@@ -97,8 +95,8 @@ class ArrayListTest {
 
         assertEquals(3, list.size());
         assertEquals("A", list.get(0));
-        assertEquals("С", list.get(1));
-        assertEquals("В", list.get(2));
+        assertEquals("C", list.get(1));
+        assertEquals("B", list.get(2));
     }
 
     @Test
@@ -114,13 +112,13 @@ class ArrayListTest {
         assertEquals("A", list.get(0));
         assertEquals("D", list.get(1));
         assertEquals("C", list.get(2));
-        assertEquals("В", list.get(3));
+        assertEquals("B", list.get(3));
     }
 
     @Test
     void testExceptionThrownWhenAddAtIndexLargerThanSize() {
         ArrayList list = new ArrayList();
-        String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 3);
+        String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 2);
         list.add("A");
         list.add("B");
 
@@ -136,7 +134,7 @@ class ArrayListTest {
     @Test
     void testExceptionThrownWhenAddAtInvalidIndex() {
         ArrayList list = new ArrayList();
-        String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 3);
+        String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 2);
         list.add("A");
         list.add("B");
 
@@ -199,7 +197,7 @@ class ArrayListTest {
     }
 
     @Test
-    void testRemoveInvalidInvalidIndex() {
+    void testExceptionRemoveInvalidInvalidIndex() {
         ArrayList list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 2);
 
@@ -208,7 +206,7 @@ class ArrayListTest {
         list.add("C");
 
         try {
-            list.add("D", 5);
+            list.remove(-1);
             fail("Exception was not thrown");
         } catch (Exception e) {
             assertEquals(IndexOutOfBoundsException.class, e.getClass());
@@ -217,15 +215,15 @@ class ArrayListTest {
     }
 
     @Test
-    void testRemoveIndexLargerThanSize() {
+    void testExceptionRemoveIndexLargerThanSize() {
         ArrayList list = new ArrayList();
-        String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 2);
+        String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 2);
         list.add("A");
         list.add("B");
         list.add("C");
 
         try {
-            list.add("D", -1);
+            list.remove(5);
             fail("Exception was not thrown");
         } catch (Exception e) {
             assertEquals(IndexOutOfBoundsException.class, e.getClass());
@@ -248,7 +246,7 @@ class ArrayListTest {
     }
 
     @Test
-    void testGetInvalidIndex() {
+    void testExceptionGetInvalidIndex() {
         ArrayList list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 1);
         list.add("A");
@@ -264,7 +262,7 @@ class ArrayListTest {
     }
 
     @Test
-    void testGetIndexLargerThanSize() {
+    void testExceptionGetIndexLargerThanSize() {
         ArrayList list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 1);
         list.add("A");
@@ -306,7 +304,7 @@ class ArrayListTest {
     }
 
     @Test
-    void testSetInvalidIndex() {
+    void testExceptionSetInvalidIndex() {
         ArrayList list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 1);
         list.add("A");
@@ -322,7 +320,7 @@ class ArrayListTest {
     }
 
     @Test
-    void testSetIndexLargerThanSize() {
+    void testExceptionSetIndexLargerThanSize() {
         ArrayList list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 1);
         list.add("A");
@@ -360,11 +358,11 @@ class ArrayListTest {
 
         assertTrue(list.isEmpty());
 
-        list.add("A");
-        list.add("B");
+        list.add("C");
+        list.add("D");
 
         assertEquals(2, list.size());
-        assertEquals("A", list.get(0));
+        assertEquals("C", list.get(0));
         assertEquals("D", list.get(1));
     }
 
