@@ -25,7 +25,9 @@ public class ArrayQueue implements Queue {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to dequeue on empty queue");
         }
-        Object firstElement = array[head++];
+        Object firstElement = array[head];
+        array[head] = null;
+        head++;
         if (isEmpty()) {
             clear();
         }
@@ -66,6 +68,9 @@ public class ArrayQueue implements Queue {
 
     @Override
     public void clear() {
+        for (int i = head; i < tail; i++) {
+            array[i] = null;
+        }
         head = 0;
         tail = 0;
     }
