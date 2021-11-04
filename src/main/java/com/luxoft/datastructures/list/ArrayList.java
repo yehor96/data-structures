@@ -1,12 +1,8 @@
 package com.luxoft.datastructures.list;
 
-public class ArrayList implements List {
-
-    static final String INVALID_RANGE_EXCEPTION_MESSAGE =
-            "Unable to process value at index %d. Available range: [0, %d]";
+public class ArrayList extends AbstractList {
 
     private Object[] array;
-    private int size = 0;
 
     public ArrayList(int capacity) {
         array = new Object[capacity];
@@ -24,6 +20,7 @@ public class ArrayList implements List {
     @Override
     public void add(Object value, int index) {
         verifyIndexWithinArrayBounds(index, size);
+        verifyNotNull(value);
         ensureCapacity();
 
         if (index < size) {
@@ -53,6 +50,8 @@ public class ArrayList implements List {
     @Override
     public Object set(Object value, int index) {
         verifyIndexWithinArrayBounds(index, size - 1);
+        verifyNotNull(value);
+
         Object replaced = array[index];
         array[index] = value;
         return replaced;
@@ -64,30 +63,6 @@ public class ArrayList implements List {
             array[i] = null;
         }
         size = 0;
-    }
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
-    public boolean contains(Object value) {
-        if (value == null) {
-            return false;
-        }
-
-        for (int i = 0; i < size; i++) {
-            if (array[i].equals(value)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -137,13 +112,6 @@ public class ArrayList implements List {
             Object[] newArray = new Object[(int) (array.length * 1.5)];
             System.arraycopy(array, 0, newArray, 0, size);
             array = newArray;
-        }
-    }
-
-    private void verifyIndexWithinArrayBounds(int index, int topBound) {
-        if (!(index >= 0 && index <= topBound)) {
-            String errorMsg = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, index, topBound);
-            throw new IndexOutOfBoundsException(errorMsg);
         }
     }
 }

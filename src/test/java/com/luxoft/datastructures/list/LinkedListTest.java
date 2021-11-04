@@ -1,19 +1,25 @@
 package com.luxoft.datastructures.list;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.luxoft.datastructures.list.ArrayList.INVALID_RANGE_EXCEPTION_MESSAGE;
+import static com.luxoft.datastructures.list.AbstractList.INVALID_RANGE_EXCEPTION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class ArrayListTest {
+class LinkedListTest {
+
+    private List list;
+
+    @BeforeEach
+    void beforeEach() {
+        list = new LinkedList();
+    }
 
     @Test
     void testAddElement() {
-        List list = new ArrayList();
-
         list.add("A");
 
         assertEquals(1, list.size());
@@ -22,8 +28,6 @@ class ArrayListTest {
 
     @Test
     void testAddDuplicateElement() {
-        List list = new ArrayList();
-
         list.add("A");
 
         assertEquals(1, list.size());
@@ -35,8 +39,6 @@ class ArrayListTest {
 
     @Test
     void testAddElements() {
-        List list = new ArrayList();
-
         list.add("A");
         list.add("B");
 
@@ -47,8 +49,6 @@ class ArrayListTest {
 
     @Test
     void testAddElementsAndAssertPositions() {
-        List list = new ArrayList();
-
         list.add("A");
         list.add("B");
 
@@ -59,7 +59,6 @@ class ArrayListTest {
 
     @Test
     void testAddElementAtFirstIndex() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -73,7 +72,6 @@ class ArrayListTest {
 
     @Test
     void testAddElementAtLastIndex() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -87,7 +85,6 @@ class ArrayListTest {
 
     @Test
     void testAddElementAtMiddleIndex() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -101,7 +98,6 @@ class ArrayListTest {
 
     @Test
     void testAddElementsAtIndex() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -117,7 +113,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionThrownWhenAddAtIndexLargerThanSize() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 2);
         list.add("A");
         list.add("B");
@@ -133,7 +128,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionThrownWhenAddAtInvalidIndex() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 2);
         list.add("A");
         list.add("B");
@@ -149,7 +143,6 @@ class ArrayListTest {
 
     @Test
     void testRemoveAtFirstIndex() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
         list.add("C");
@@ -164,7 +157,6 @@ class ArrayListTest {
 
     @Test
     void testRemoveAtLastIndex() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
         list.add("C");
@@ -179,7 +171,6 @@ class ArrayListTest {
 
     @Test
     void testRemoveAddRemoveAgain() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -198,7 +189,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionRemoveInvalidInvalidIndex() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 2);
 
         list.add("A");
@@ -216,7 +206,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionRemoveIndexLargerThanSize() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 2);
         list.add("A");
         list.add("B");
@@ -233,7 +222,6 @@ class ArrayListTest {
 
     @Test
     void testGetIndex() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -247,7 +235,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionGetInvalidIndex() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 1);
         list.add("A");
         list.add("B");
@@ -263,7 +250,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionGetIndexLargerThanSize() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 1);
         list.add("A");
         list.add("B");
@@ -279,7 +265,6 @@ class ArrayListTest {
 
     @Test
     void testSetFirstElement() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -292,7 +277,6 @@ class ArrayListTest {
 
     @Test
     void testSetLastElement() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -305,7 +289,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionSetInvalidIndex() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 1);
         list.add("A");
         list.add("B");
@@ -321,7 +304,6 @@ class ArrayListTest {
 
     @Test
     void testExceptionSetIndexLargerThanSize() {
-        List list = new ArrayList();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 1);
         list.add("A");
         list.add("B");
@@ -337,7 +319,6 @@ class ArrayListTest {
 
     @Test
     void testClearAndEmpty() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -350,7 +331,6 @@ class ArrayListTest {
 
     @Test
     void testAddAfterClear() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -368,7 +348,6 @@ class ArrayListTest {
 
     @Test
     void testSize() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -381,7 +360,6 @@ class ArrayListTest {
 
     @Test
     void testContains() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -399,7 +377,6 @@ class ArrayListTest {
 
     @Test
     void testIndexOf() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
         list.add("A");
@@ -412,7 +389,6 @@ class ArrayListTest {
 
     @Test
     void testLastIndexOf() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
         list.add("A");
@@ -425,14 +401,11 @@ class ArrayListTest {
 
     @Test
     void testEmptyToString() {
-        List list = new ArrayList();
-
         assertEquals("[]", list.toString());
     }
 
     @Test
     void testFilledToString() {
-        List list = new ArrayList();
         list.add("A");
         list.add("B");
 
@@ -440,17 +413,42 @@ class ArrayListTest {
     }
 
     @Test
-    void testCapacity() {
-        List list = new ArrayList(2);
+    void testManyAdditionsInRandomPositions() {
         list.add("A");
         list.add("B");
+        list.add("C", 0);
+        list.add("D", 1);
+        list.add("E", 3);
+        list.add("F", 0);
+        list.add("G", list.size() - 1);
+        list.add("Y", list.size() - 1);
+        list.add("S");
+        list.add("X", list.size() - 2);
+        list.add("Z", list.size() - 2);
+        list.add("O", 0);
 
-        list.add("C");
-
-        assertEquals(3, list.size());
-        assertEquals("A", list.get(0));
-        assertEquals("B", list.get(1));
-        assertEquals("C", list.get(2));
+        assertEquals(12, list.size());
+        assertEquals("[O, F, C, D, A, E, G, Y, X, Z, B, S]", list.toString());
     }
 
+    @Test
+    void testManySetsInRandomPositions() {
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+        list.add("E");
+        list.add("F");
+        list.set("G", 0);
+        list.set("H", 1);
+        list.set("I", 3);
+        list.set("S", 0);
+        list.set("Y", list.size() - 1);
+        list.set("X", list.size() - 2);
+        list.set("Z", list.size() - 2);
+        list.set("O", 0);
+
+        assertEquals(6, list.size());
+        assertEquals("[O, H, C, I, Z, Y]", list.toString());
+    }
 }
