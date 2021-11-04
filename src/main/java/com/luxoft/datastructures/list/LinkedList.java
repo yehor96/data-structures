@@ -92,7 +92,10 @@ public class LinkedList extends AbstractList {
 
         Node newNode = new Node(value);
         Node oldNode = head;
-        if (index == 0) {
+        if (size == 1) {
+            tail = newNode;
+            head = newNode;
+        } else if (index == 0) {
             head.next.prev = newNode;
             newNode.next = head.next;
             head = newNode;
