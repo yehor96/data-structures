@@ -8,34 +8,21 @@ public class LinkedList extends AbstractList {
     private Node tail;
 
     @Override
-    public void add(Object value) {
-        verifyNotNull(value);
-
-        Node newNode = new Node(value);
-        if (size == 0) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            Node current = tail;
-            tail = newNode;
-            current.next = tail;
-            tail.prev = current;
-        }
-        size++;
-    }
-
-    @Override
     public void add(Object value, int index) {
-        verifyIndexWithinArrayBounds(index, size);
-        if (index == size) {
-            add(value);
-            return;
-        }
+        verifyIndexAdd(index);
         verifyNotNull(value);
 
         Node current = head;
         Node newNode = new Node(value);
-        if (index == 0) {
+        if (size == 0) {
+            head = newNode;
+            tail = newNode;
+        } else if (index == size) {
+            current = tail;
+            tail = newNode;
+            current.next = tail;
+            tail.prev = current;
+        } else if (index == 0) {
             head = newNode;
             head.next = current;
             current.prev = head;
@@ -53,7 +40,7 @@ public class LinkedList extends AbstractList {
 
     @Override
     public Object remove(int index) {
-        verifyIndexWithinArrayBounds(index, size - 1);
+        verifyIndex(index);
         Node oldNode = head;
         if (size == 1) {
             clear();
@@ -77,7 +64,7 @@ public class LinkedList extends AbstractList {
 
     @Override
     public Object get(int index) {
-        verifyIndexWithinArrayBounds(index, size - 1);
+        verifyIndex(index);
         Node current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;
@@ -87,7 +74,7 @@ public class LinkedList extends AbstractList {
 
     @Override
     public Object set(Object value, int index) {
-        verifyIndexWithinArrayBounds(index, size - 1);
+        verifyIndex(index);
         verifyNotNull(value);
 
         Node newNode = new Node(value);

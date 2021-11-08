@@ -13,13 +13,8 @@ public class ArrayList extends AbstractList {
     }
 
     @Override
-    public void add(Object value) {
-        add(value, size);
-    }
-
-    @Override
     public void add(Object value, int index) {
-        verifyIndexWithinArrayBounds(index, size);
+        verifyIndexAdd(index);
         verifyNotNull(value);
         ensureCapacity();
 
@@ -32,7 +27,7 @@ public class ArrayList extends AbstractList {
 
     @Override
     public Object remove(int index) {
-        verifyIndexWithinArrayBounds(index, size - 1);
+        verifyIndex(index);
 
         Object removed = array[index];
         System.arraycopy(array, index + 1, array, index, size - index);
@@ -43,13 +38,13 @@ public class ArrayList extends AbstractList {
 
     @Override
     public Object get(int index) {
-        verifyIndexWithinArrayBounds(index, size - 1);
+        verifyIndex(index);
         return array[index];
     }
 
     @Override
     public Object set(Object value, int index) {
-        verifyIndexWithinArrayBounds(index, size - 1);
+        verifyIndex(index);
         verifyNotNull(value);
 
         Object replaced = array[index];

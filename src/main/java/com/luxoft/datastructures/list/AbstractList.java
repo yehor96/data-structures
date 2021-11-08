@@ -11,6 +11,11 @@ public abstract class AbstractList implements List {
     protected int size = 0;
 
     @Override
+    public void add(Object value) {
+        add(value, size);
+    }
+
+    @Override
     public int size() {
         return size;
     }
@@ -25,9 +30,16 @@ public abstract class AbstractList implements List {
         return indexOf(value) != -1;
     }
 
-    protected void verifyIndexWithinArrayBounds(int index, int topBound) {
-        if (!(index >= 0 && index <= topBound)) {
-            String errorMsg = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, index, topBound);
+    protected void verifyIndexAdd(int index) {
+        if (!(index >= 0 && index <= size)) {
+            String errorMsg = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, index, size);
+            throw new IndexOutOfBoundsException(errorMsg);
+        }
+    }
+
+    protected void verifyIndex(int index) {
+        if (!(index >= 0 && index < size)) {
+            String errorMsg = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, index, size - 1);
             throw new IndexOutOfBoundsException(errorMsg);
         }
     }
