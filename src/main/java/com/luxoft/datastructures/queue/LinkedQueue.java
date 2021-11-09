@@ -90,12 +90,12 @@ public class LinkedQueue implements Queue {
 
     @Override
     public String toString() {
-        StringJoiner sj = new StringJoiner(", ", "[", "]");
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
         Node current = head;
         for (int i = 0; i < size; i++) {
-            sj.add(String.valueOf(current.getValue()));
+            stringJoiner.add(String.valueOf(current.getValue()));
             current = current.prev;
         }
-        return sj.toString();
+        return stringJoiner.toString();
     }
 }

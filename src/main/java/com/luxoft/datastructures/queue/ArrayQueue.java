@@ -1,5 +1,9 @@
 package com.luxoft.datastructures.queue;
 
+import com.luxoft.datastructures.Node;
+
+import java.util.StringJoiner;
+
 public class ArrayQueue implements Queue {
 
     private Object[] array;
@@ -77,16 +81,11 @@ public class ArrayQueue implements Queue {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("[");
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
         for (int i = head; i < tail; i++) {
-            stringBuilder.append(array[i]);
-            if (i + 1 != tail) {
-                stringBuilder.append(", ");
-            }
+            stringJoiner.add(String.valueOf(array[i]));
         }
-        stringBuilder.append("]");
-
-        return stringBuilder.toString();
+        return stringJoiner.toString();
     }
 
     private void ensureCapacity() {

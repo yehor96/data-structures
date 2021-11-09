@@ -1,5 +1,7 @@
 package com.luxoft.datastructures.list;
 
+import java.util.StringJoiner;
+
 public class ArrayList extends AbstractList {
 
     private Object[] array;
@@ -91,15 +93,11 @@ public class ArrayList extends AbstractList {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("[");
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
         for (int i = 0; i < size; i++) {
-            sb.append(array[i]);
-            if (i != size - 1) {
-                sb.append(", ");
-            }
+            stringJoiner.add(String.valueOf(array[i]));
         }
-        sb.append("]");
-        return sb.toString();
+        return stringJoiner.toString();
     }
 
     private void ensureCapacity() {

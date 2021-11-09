@@ -2,6 +2,8 @@ package com.luxoft.datastructures.list;
 
 import com.luxoft.datastructures.Node;
 
+import java.util.StringJoiner;
+
 public class LinkedList extends AbstractList {
 
     private Node head;
@@ -27,9 +29,8 @@ public class LinkedList extends AbstractList {
             head.next = current;
             current.prev = head;
         } else {
-            for (int i = 0; i < index; i++) {
-                current = current.next;
-            }
+            current = getNodeAt(index);
+
             current.prev.next = newNode;
             newNode.prev = current.prev;
             newNode.next = current;
@@ -52,9 +53,8 @@ public class LinkedList extends AbstractList {
             tail.prev.next = null;
             tail = tail.prev;
         } else {
-            for (int i = 0; i < index; i++) {
-                oldNode = oldNode.next;
-            }
+            oldNode = getNodeAt(index);
+
             oldNode.prev.next = oldNode.next;
             oldNode.next.prev = oldNode.prev;
         }
@@ -65,10 +65,7 @@ public class LinkedList extends AbstractList {
     @Override
     public Object get(int index) {
         verifyIndex(index);
-        Node current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
+        Node current = getNodeAt(index);
         return current.getValue();
     }
 
@@ -92,9 +89,8 @@ public class LinkedList extends AbstractList {
             newNode.prev = tail.prev;
             tail = newNode;
         } else {
-            for (int i = 0; i < index; i++) {
-                oldNode = oldNode.next;
-            }
+            oldNode = getNodeAt(index);
+
             oldNode.prev.next = newNode;
             oldNode.next.prev = newNode;
             newNode.prev = oldNode.prev;
@@ -144,16 +140,28 @@ public class LinkedList extends AbstractList {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("[");
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
         Node current = head;
         for (int i = 0; i < size; i++) {
-            sb.append(current.getValue());
-            if (i != size - 1) {
-                sb.append(", ");
-            }
+            stringJoiner.add(String.valueOf(current.getValue()));
             current = current.next;
         }
-        sb.append("]");
-        return sb.toString();
+        return stringJoiner.toString();
+    }
+
+    private Node getNodeAt(int index) {
+        Node current;
+        if (size / 2 <= index) {
+            current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+        } else {
+            current = tail;
+            for (int i = 0; i < size - index - 1; i++) {
+                current = current.prev;
+            }
+        }
+        return current;
     }
 }
