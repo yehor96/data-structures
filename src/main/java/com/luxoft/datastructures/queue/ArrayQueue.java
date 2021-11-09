@@ -1,7 +1,6 @@
 package com.luxoft.datastructures.queue;
 
-import com.luxoft.datastructures.Node;
-
+import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 public class ArrayQueue implements Queue {
@@ -98,6 +97,30 @@ public class ArrayQueue implements Queue {
             array = newArray;
             head = 0;
             tail = j;
+        }
+    }
+
+    @Override
+    public java.util.Iterator iterator() {
+        return new Iterator();
+    }
+
+    private class Iterator implements java.util.Iterator {
+
+        private int current = head;
+
+        @Override
+        public boolean hasNext() {
+            return current < tail;
+        }
+
+        @Override
+        public Object next() {
+            if (!hasNext()) {
+                String errorMessage = String.format("Actual size of %d is reached", size());
+                throw new NoSuchElementException(errorMessage);
+            }
+            return array[current++];
         }
     }
 }

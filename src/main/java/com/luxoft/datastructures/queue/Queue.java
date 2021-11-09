@@ -2,7 +2,7 @@ package com.luxoft.datastructures.queue;
 
 // FIFO
 //
-public interface Queue {
+public interface Queue extends Iterable {
     void enqueue(Object value);
 
     Object dequeue();

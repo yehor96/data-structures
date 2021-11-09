@@ -2,6 +2,7 @@ package com.luxoft.datastructures.queue;
 
 import com.luxoft.datastructures.Node;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -97,5 +98,33 @@ public class LinkedQueue implements Queue {
             current = current.prev;
         }
         return stringJoiner.toString();
+    }
+
+    @Override
+    public java.util.Iterator iterator() {
+        return new Iterator();
+    }
+
+    private class Iterator implements java.util.Iterator {
+
+        private Node pointer = head;
+        private int counter = 0;
+
+        @Override
+        public boolean hasNext() {
+            return counter < size;
+        }
+
+        @Override
+        public Object next() {
+            if (!hasNext()) {
+                String errorMessage = String.format("Actual size of %d is reached", size);
+                throw new NoSuchElementException(errorMessage);
+            }
+            Node current = pointer;
+            pointer = pointer.prev;
+            counter++;
+            return current.getValue();
+        }
     }
 }

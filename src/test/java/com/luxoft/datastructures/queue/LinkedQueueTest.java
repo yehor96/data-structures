@@ -3,6 +3,9 @@ package com.luxoft.datastructures.queue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -164,6 +167,71 @@ class LinkedQueueTest {
         queue.enqueue("Z");
         assertEquals("E", queue.dequeue());
         assertEquals(3, queue.size());
+    }
+
+    @Test
+    void testIteratorFullForeach() {
+        queue.enqueue("A");
+        queue.enqueue("B");
+        queue.enqueue("C");
+        Queue result = new LinkedQueue();
+
+        for (Object o : queue) {
+            result.enqueue(o);
+        }
+
+        assertEquals(queue.size(), result.size());
+        assertEquals(queue.dequeue(), result.dequeue());
+        assertEquals(queue.dequeue(), result.dequeue());
+        assertEquals(queue.dequeue(), result.dequeue());
+    }
+
+    @Test
+    void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
+        queue.enqueue("A");
+
+        Iterator iterator = queue.iterator();
+        iterator.next();
+        try {
+            iterator.next();
+            fail("Exception was not thrown");
+        } catch (Exception e) {
+            assertEquals(NoSuchElementException.class, e.getClass());
+            assertEquals("Actual size of 1 is reached", e.getMessage());
+        }
+    }
+
+    @Test
+    void testIteratorReturnsTrueWhenNextElementExists() {
+        queue.enqueue("A");
+
+        Iterator iterator = queue.iterator();
+
+        assertTrue(iterator.hasNext());
+    }
+
+    @Test
+    void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
+        Iterator iterator = queue.iterator();
+
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    void testIteratorAfterRemovingElement() {
+        queue.enqueue("A");
+        queue.enqueue("B");
+        queue.enqueue("C");
+        Queue result = new ArrayQueue();
+
+        queue.dequeue();
+        for (Object o : queue) {
+            result.enqueue(o);
+        }
+
+        assertEquals(queue.size(), result.size());
+        assertEquals(queue.dequeue(), result.dequeue());
+        assertEquals(queue.dequeue(), result.dequeue());
     }
 
 }

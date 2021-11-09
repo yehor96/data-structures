@@ -2,6 +2,9 @@ package com.luxoft.datastructures.queue;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,9 +12,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class ArrayQueueTest {
 
+    private Queue queue;
+
     @Test
     void testEnqueue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
         queue.enqueue("B");
 
@@ -22,7 +27,7 @@ class ArrayQueueTest {
 
     @Test
     void testDequeueReturnsFirstElement() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
         queue.enqueue("B");
 
@@ -31,7 +36,7 @@ class ArrayQueueTest {
 
     @Test
     void testDequeueRemovesDequeueElement() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
         queue.enqueue("B");
 
@@ -43,7 +48,7 @@ class ArrayQueueTest {
 
     @Test
     void testDequeueOnEmptyQueue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
 
         try {
             queue.dequeue();
@@ -56,7 +61,7 @@ class ArrayQueueTest {
 
     @Test
     void testPeekReturnsFirstElement() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
         queue.enqueue("B");
 
@@ -65,7 +70,7 @@ class ArrayQueueTest {
 
     @Test
     void testPeekReturnsFirstElementAfterDequeue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
         queue.enqueue("B");
 
@@ -76,7 +81,7 @@ class ArrayQueueTest {
 
     @Test
     void testPeekOnEmptyQueue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
 
         try {
             queue.peek();
@@ -89,7 +94,7 @@ class ArrayQueueTest {
 
     @Test
     void testQueueIsEmptyAfterAllElementsDequeue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
 
         queue.dequeue();
@@ -99,7 +104,7 @@ class ArrayQueueTest {
 
     @Test
     void testQueueSizeIncreasesAndDecreasesAfterEnqueueAndDequeue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         assertEquals(0, queue.size());
 
         queue.enqueue("A");
@@ -111,7 +116,7 @@ class ArrayQueueTest {
 
     @Test
     void testClearQueue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
         queue.enqueue("B");
         queue.enqueue("C");
@@ -125,7 +130,7 @@ class ArrayQueueTest {
 
     @Test
     void testContains() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         queue.enqueue("A");
 
         assertTrue(queue.contains("A"));
@@ -136,7 +141,7 @@ class ArrayQueueTest {
 
     @Test
     void testToStringEmptyQueue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         String expectedToString = "[]";
 
         String actualToString = queue.toString();
@@ -146,7 +151,7 @@ class ArrayQueueTest {
 
     @Test
     void testToStringFilledQueue() {
-        ArrayQueue queue = new ArrayQueue();
+        queue = new ArrayQueue();
         String expectedToString = "[A, B, C]";
         queue.enqueue("A");
         queue.enqueue("B");
@@ -159,7 +164,7 @@ class ArrayQueueTest {
 
     @Test
     void testQueueOverflow() {
-        ArrayQueue queue = new ArrayQueue(2);
+        queue = new ArrayQueue(2);
         queue.enqueue("A");
         queue.enqueue("B");
         queue.enqueue("C");
@@ -169,6 +174,77 @@ class ArrayQueueTest {
         assertTrue(queue.contains("A"));
         assertTrue(queue.contains("B"));
         assertTrue(queue.contains("C"));
+    }
+
+    @Test
+    void testIteratorFullForeach() {
+        queue = new ArrayQueue();
+        queue.enqueue("A");
+        queue.enqueue("B");
+        queue.enqueue("C");
+        Queue result = new ArrayQueue();
+
+        for (Object o : queue) {
+            result.enqueue(o);
+        }
+
+        assertEquals(queue.size(), result.size());
+        assertEquals(queue.dequeue(), result.dequeue());
+        assertEquals(queue.dequeue(), result.dequeue());
+        assertEquals(queue.dequeue(), result.dequeue());
+    }
+
+    @Test
+    void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
+        queue = new ArrayQueue();
+        queue.enqueue("A");
+
+        Iterator iterator = queue.iterator();
+        iterator.next();
+        try {
+            iterator.next();
+            fail("Exception was not thrown");
+        } catch (Exception e) {
+            assertEquals(NoSuchElementException.class, e.getClass());
+            assertEquals("Actual size of 1 is reached", e.getMessage());
+        }
+    }
+
+    @Test
+    void testIteratorReturnsTrueWhenNextElementExists() {
+        queue = new ArrayQueue();
+        queue.enqueue("A");
+
+        Iterator iterator = queue.iterator();
+
+        assertTrue(iterator.hasNext());
+    }
+
+    @Test
+    void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
+        queue = new ArrayQueue();
+
+        Iterator iterator = queue.iterator();
+
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    void testIteratorAfterRemovingElement() {
+        queue = new ArrayQueue();
+        queue.enqueue("A");
+        queue.enqueue("B");
+        queue.enqueue("C");
+        Queue result = new ArrayQueue();
+
+        queue.dequeue();
+        for (Object o : queue) {
+            result.enqueue(o);
+        }
+
+        assertEquals(queue.size(), result.size());
+        assertEquals(queue.dequeue(), result.dequeue());
+        assertEquals(queue.dequeue(), result.dequeue());
     }
 
 }
