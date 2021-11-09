@@ -1,5 +1,6 @@
 package com.luxoft.datastructures.list;
 
+import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 public class ArrayList extends AbstractList {
@@ -100,11 +101,35 @@ public class ArrayList extends AbstractList {
         return stringJoiner.toString();
     }
 
+    @Override
+    public java.util.Iterator iterator() {
+        return new Iterator();
+    }
+
     private void ensureCapacity() {
         if (size == array.length) {
             Object[] newArray = new Object[(int) (array.length * 1.5)];
             System.arraycopy(array, 0, newArray, 0, size);
             array = newArray;
+        }
+    }
+
+    private class Iterator implements java.util.Iterator {
+
+        private int counter = 0;
+
+        @Override
+        public boolean hasNext() {
+            return counter < size;
+        }
+
+        @Override
+        public Object next() {
+            if (!hasNext()) {
+                String errorMessage = String.format(NO_SUCH_ELEMENT_ERROR_MESSAGE, size, counter);
+                throw new NoSuchElementException(errorMessage);
+            }
+            return array[counter++];
         }
     }
 }

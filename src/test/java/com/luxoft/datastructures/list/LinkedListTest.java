@@ -3,7 +3,11 @@ package com.luxoft.datastructures.list;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static com.luxoft.datastructures.list.AbstractList.INVALID_RANGE_EXCEPTION_MESSAGE;
+import static com.luxoft.datastructures.list.AbstractList.NO_SUCH_ELEMENT_ERROR_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -450,5 +454,77 @@ class LinkedListTest {
 
         assertEquals(6, list.size());
         assertEquals("[O, H, C, I, Z, Y]", list.toString());
+    }
+
+    @Test
+    void testIteratorFullForeach() {
+        List list = new LinkedList();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        List result = new LinkedList();
+
+        for (Object o : list) {
+            result.add(o);
+        }
+
+        assertEquals(list.size(), result.size());
+        assertEquals(list.get(0), result.get(0));
+        assertEquals(list.get(1), result.get(1));
+        assertEquals(list.get(2), result.get(2));
+    }
+
+    @Test
+    void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
+        List list = new LinkedList();
+        list.add("A");
+
+        Iterator iterator = list.iterator();
+        iterator.next();
+        try {
+            iterator.next();
+            fail("Exception was not thrown");
+        } catch (Exception e) {
+            String expectedErrorMessage = String.format(NO_SUCH_ELEMENT_ERROR_MESSAGE, 1, 1);
+            assertEquals(NoSuchElementException.class, e.getClass());
+            assertEquals(expectedErrorMessage, e.getMessage());
+        }
+    }
+
+    @Test
+    void testIteratorReturnsTrueWhenNextElementExists() {
+        List list = new LinkedList();
+        list.add("A");
+
+        Iterator iterator = list.iterator();
+
+        assertTrue(iterator.hasNext());
+    }
+
+    @Test
+    void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
+        List list = new LinkedList();
+
+        Iterator iterator = list.iterator();
+
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    void testIteratorAfterRemovingElement() {
+        List list = new LinkedList();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        List result = new LinkedList();
+
+        list.remove(0);
+        for (Object o : list) {
+            result.add(o);
+        }
+
+        assertEquals(list.size(), result.size());
+        assertEquals(list.get(0), result.get(0));
+        assertEquals(list.get(1), result.get(1));
     }
 }

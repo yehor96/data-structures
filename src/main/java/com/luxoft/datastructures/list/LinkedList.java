@@ -2,6 +2,7 @@ package com.luxoft.datastructures.list;
 
 import com.luxoft.datastructures.Node;
 
+import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 public class LinkedList extends AbstractList {
@@ -163,5 +164,34 @@ public class LinkedList extends AbstractList {
             }
         }
         return current;
+    }
+
+    @Override
+    public java.util.Iterator iterator() {
+        return new Iterator();
+    }
+
+    private class Iterator implements java.util.Iterator {
+
+        private int counter = 0;
+        private Node pointer = head;
+
+        @Override
+        public boolean hasNext() {
+            return counter < size;
+        }
+
+        @Override
+        public Object next() {
+            if (!hasNext()) {
+                String errorMessage = String.format(NO_SUCH_ELEMENT_ERROR_MESSAGE, size, counter);
+                throw new NoSuchElementException(errorMessage);
+            }
+
+            Node current = pointer;
+            pointer = pointer.next;
+            counter++;
+            return current.getValue();
+        }
     }
 }

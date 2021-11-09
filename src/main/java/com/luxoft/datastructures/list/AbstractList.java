@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public abstract class AbstractList implements List {
 
+    protected static final String NO_SUCH_ELEMENT_ERROR_MESSAGE = "Actual size [%d], index of requested element [%d]";
     protected static final String NULL_PASSED_EXCEPTION_MESSAGE = "Null values are not allowed in the list";
     protected static final String INVALID_RANGE_EXCEPTION_MESSAGE =
             "Unable to process value at index %d. Available range: [0, %d]";
