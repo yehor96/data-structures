@@ -1,6 +1,7 @@
 package com.luxoft.datastructures.queue;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class ArrayQueue implements Queue {
@@ -57,7 +58,7 @@ public class ArrayQueue implements Queue {
 
     @Override
     public boolean contains(Object value) {
-        if (value == null) {
+        if (Objects.isNull(value)) {
             return false;
         }
 
@@ -89,14 +90,11 @@ public class ArrayQueue implements Queue {
 
     private void ensureCapacity() {
         if (tail == array.length) {
-            Object[] newArray = new Object[array.length * 2];
-            int j = 0;
-            for (int i = head; i < tail; i++, j++) {
-                newArray[j] = array[i];
-            }
+            Object[] newArray = new Object[(int)(array.length * 1.5)];
+            System.arraycopy(array, head, newArray, 0, size());
             array = newArray;
             head = 0;
-            tail = j;
+            tail = array.length - 1;
         }
     }
 
