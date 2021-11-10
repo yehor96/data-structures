@@ -1,27 +1,23 @@
 package com.luxoft.datastructures.stack;
 
+import com.luxoft.datastructures.Node;
+
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class ArrayStack extends AbstractStack {
+public class LinkedStack extends AbstractStack {
 
-    private static final int DEFAULT_CAPACITY = 16;
-
-    private Object[] array;
-
-    public ArrayStack() {
-        this(DEFAULT_CAPACITY);
-    }
-
-    public ArrayStack(int capacity) {
-        array = new Object[capacity];
-    }
+    private Node head;
 
     @Override
     public void push(Object value) {
-        ensureCapacity();
-        array[size++] = value;
+        Node newNode = new Node(value);
+        if (size != 0) {
+            newNode.next = head;
+        }
+        head = newNode;
+        size++;
     }
 
     @Override
@@ -29,10 +25,15 @@ public class ArrayStack extends AbstractStack {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to pop on empty stack");
         }
-        Object element = peek();
-        array[size] = null;
+
+        Node popped = head;
+        if (size != 1) {
+            head = head.next;
+        } else {
+            head = null;
+        }
         size--;
-        return element;
+        return popped.getValue();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class ArrayStack extends AbstractStack {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to peek on empty stack");
         }
-        return array[size - 1];
+        return head.getValue();
     }
 
     @Override
@@ -48,27 +49,30 @@ public class ArrayStack extends AbstractStack {
         if (Objects.isNull(value)) {
             return false;
         }
+
+        Node current = head;
         for (int i = 0; i < size; i++) {
-            if (array[i].equals(value)) {
+            if (current.getValue().equals(value)) {
                 return true;
             }
+            current = current.next;
         }
         return false;
     }
 
     @Override
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            array[i] = null;
-        }
+        head = null;
         size = 0;
     }
 
     @Override
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+        Node current = head;
         for (int i = 0; i < size; i++) {
-            stringJoiner.add(String.valueOf(array[i]));
+            stringJoiner.add(String.valueOf(current.getValue()));
+            current = current.next;
         }
         return stringJoiner.toString();
     }
@@ -78,17 +82,10 @@ public class ArrayStack extends AbstractStack {
         return new Iterator();
     }
 
-    private void ensureCapacity() {
-        if (size == array.length) {
-            Object[] newArray = new Object[(int) (array.length * 1.5)];
-            System.arraycopy(array, 0, newArray, 0, array.length);
-            array = newArray;
-        }
-    }
-
     private class Iterator implements java.util.Iterator {
 
         private int counter = 0;
+        Node current = head;
 
         @Override
         public boolean hasNext() {
@@ -98,10 +95,14 @@ public class ArrayStack extends AbstractStack {
         @Override
         public Object next() {
             if (!hasNext()) {
-                String errorMessage = String.format("Actual size of %d is reached", size());
+                String errorMessage = String.format("Actual size of %d is reached", size);
                 throw new NoSuchElementException(errorMessage);
             }
-            return array[counter++];
+
+            Node next = current;
+            current = current.next;
+            counter++;
+            return next.getValue();
         }
     }
 }
