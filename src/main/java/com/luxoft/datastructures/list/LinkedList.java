@@ -188,10 +188,10 @@ public class LinkedList extends AbstractList {
                 throw new NoSuchElementException(errorMessage);
             }
 
-            Node current = pointer;
+            Object value = pointer.getValue();
             pointer = pointer.next;
             counter++;
-            return current.getValue();
+            return value;
         }
     }
 }
