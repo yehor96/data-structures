@@ -114,5 +114,12 @@ public class LinkedQueue extends AbstractQueue {
             counter++;
             return current.getValue();
         }
+
+        @Override
+        public void remove() {
+            LinkedQueue.this.dequeue();
+            counter = 0;
+            pointer = head;
+        }
     }
 }

@@ -110,5 +110,11 @@ public class ArrayQueue extends AbstractQueue {
             }
             return array[current++];
         }
+
+        @Override
+        public void remove() {
+            ArrayQueue.this.dequeue();
+            current = head;
+        }
     }
 }

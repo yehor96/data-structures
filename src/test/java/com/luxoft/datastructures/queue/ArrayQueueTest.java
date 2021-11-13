@@ -247,4 +247,21 @@ class ArrayQueueTest {
         assertEquals(queue.dequeue(), result.dequeue());
     }
 
+    @Test
+    void testIteratorRemoveMethod() {
+        queue = new ArrayQueue();
+        queue.enqueue("A");
+        queue.enqueue("B");
+        queue.enqueue("C");
+
+        Iterator iterator = queue.iterator();
+        iterator.next();
+        iterator.remove();
+
+        assertEquals(2, queue.size());
+        assertEquals(queue.peek(), iterator.next());
+        iterator.next();
+        assertFalse(iterator.hasNext());
+    }
+
 }
