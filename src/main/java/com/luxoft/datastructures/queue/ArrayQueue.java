@@ -2,9 +2,8 @@ package com.luxoft.datastructures.queue;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.StringJoiner;
 
-public class ArrayQueue implements Queue {
+public class ArrayQueue extends AbstractQueue {
 
     private Object[] array;
     private int head = 0;
@@ -77,15 +76,6 @@ public class ArrayQueue implements Queue {
         }
         head = 0;
         tail = 0;
-    }
-
-    @Override
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-        for (int i = head; i < tail; i++) {
-            stringJoiner.add(String.valueOf(array[i]));
-        }
-        return stringJoiner.toString();
     }
 
     private void ensureCapacity() {

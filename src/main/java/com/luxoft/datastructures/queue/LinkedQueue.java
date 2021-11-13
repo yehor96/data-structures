@@ -4,9 +4,8 @@ import com.luxoft.datastructures.Node;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.StringJoiner;
 
-public class LinkedQueue implements Queue {
+public class LinkedQueue extends AbstractQueue {
 
     private Node head;
     private Node tail;
@@ -87,17 +86,6 @@ public class LinkedQueue implements Queue {
     public void clear() {
         head = null;
         size = 0;
-    }
-
-    @Override
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-        Node current = head;
-        for (int i = 0; i < size; i++) {
-            stringJoiner.add(String.valueOf(current.getValue()));
-            current = current.prev;
-        }
-        return stringJoiner.toString();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.luxoft.datastructures.list;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public abstract class AbstractList implements List {
 
@@ -29,6 +30,15 @@ public abstract class AbstractList implements List {
     @Override
     public boolean contains(Object value) {
         return indexOf(value) != -1;
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+        for (Object current : this) {
+            stringJoiner.add(String.valueOf(current));
+        }
+        return stringJoiner.toString();
     }
 
     protected void verifyIndexAdd(int index) {

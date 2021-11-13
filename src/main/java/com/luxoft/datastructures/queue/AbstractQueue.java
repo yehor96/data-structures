@@ -1,20 +1,8 @@
-package com.luxoft.datastructures.stack;
+package com.luxoft.datastructures.queue;
 
 import java.util.StringJoiner;
 
-public abstract class AbstractStack implements Stack {
-
-    protected int size = 0;
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
+public abstract class AbstractQueue implements Queue {
 
     @Override
     public String toString() {
@@ -24,4 +12,5 @@ public abstract class AbstractStack implements Stack {
         }
         return stringJoiner.toString();
     }
+
 }

@@ -2,7 +2,6 @@ package com.luxoft.datastructures.stack;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.StringJoiner;
 
 public class ArrayStack extends AbstractStack {
 
@@ -62,15 +61,6 @@ public class ArrayStack extends AbstractStack {
             array[i] = null;
         }
         size = 0;
-    }
-
-    @Override
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-        for (int i = 0; i < size; i++) {
-            stringJoiner.add(String.valueOf(array[i]));
-        }
-        return stringJoiner.toString();
     }
 
     @Override
