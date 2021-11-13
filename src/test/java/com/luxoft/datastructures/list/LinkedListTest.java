@@ -462,16 +462,14 @@ class LinkedListTest {
         list.add("A");
         list.add("B");
         list.add("C");
-        List result = new LinkedList();
 
-        for (Object o : list) {
-            result.add(o);
-        }
+        Iterator iterator = list.iterator();
 
-        assertEquals(list.size(), result.size());
-        assertEquals(list.get(0), result.get(0));
-        assertEquals(list.get(1), result.get(1));
-        assertEquals(list.get(2), result.get(2));
+        assertEquals(3, list.size());
+        assertEquals(list.get(0), iterator.next());
+        assertEquals(list.get(1), iterator.next());
+        assertEquals(list.get(2), iterator.next());
+        assertFalse(iterator.hasNext());
     }
 
     @Test
@@ -516,15 +514,30 @@ class LinkedListTest {
         list.add("A");
         list.add("B");
         list.add("C");
-        List result = new LinkedList();
 
         list.remove(0);
-        for (Object o : list) {
-            result.add(o);
-        }
+        Iterator iterator = list.iterator();
 
-        assertEquals(list.size(), result.size());
-        assertEquals(list.get(0), result.get(0));
-        assertEquals(list.get(1), result.get(1));
+        assertEquals(2, list.size());
+        assertEquals(list.get(0), iterator.next());
+        assertEquals(list.get(1), iterator.next());
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    void testIteratorRemoveMethod() {
+        List list = new LinkedList();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        Iterator iterator = list.iterator();
+        iterator.next();
+        iterator.remove();
+
+        assertEquals(2, list.size());
+        assertEquals(list.get(0), iterator.next());
+        assertEquals(list.get(1), iterator.next());
+        assertFalse(iterator.hasNext());
     }
 }

@@ -181,5 +181,10 @@ public class LinkedList extends AbstractList {
             counter++;
             return value;
         }
+
+        @Override
+        public void remove() {
+            LinkedList.this.remove(--counter);
+        }
     }
 }

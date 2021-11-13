@@ -121,5 +121,10 @@ public class ArrayList extends AbstractList {
             }
             return array[counter++];
         }
+
+        @Override
+        public void remove() {
+            ArrayList.this.remove(--counter);
+        }
     }
 }
