@@ -78,11 +78,11 @@ public class ArrayStack extends AbstractStack {
 
     private class Iterator implements java.util.Iterator {
 
-        private int counter = 0;
+        private int counter = size - 1;
 
         @Override
         public boolean hasNext() {
-            return counter < size;
+            return counter >= 0;
         }
 
         @Override
@@ -91,7 +91,13 @@ public class ArrayStack extends AbstractStack {
                 String errorMessage = String.format("Actual size of %d is reached", size());
                 throw new NoSuchElementException(errorMessage);
             }
-            return array[counter++];
+            return array[counter--];
+        }
+
+        @Override
+        public void remove() {
+            ArrayStack.this.pop();
+            counter = size - 1;
         }
     }
 }

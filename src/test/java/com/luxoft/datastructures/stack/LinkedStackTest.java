@@ -234,4 +234,20 @@ class LinkedStackTest {
         assertEquals("B", result.pop());
     }
 
+    @Test
+    void testIteratorRemoveMethod() {
+        stack.push("A");
+        stack.push("B");
+        stack.push("C");
+
+        Iterator iterator = stack.iterator();
+        iterator.next();
+        iterator.remove();
+
+        assertEquals(2, stack.size());
+        assertEquals(stack.peek(), iterator.next());
+        iterator.next();
+        assertFalse(iterator.hasNext());
+    }
+
 }

@@ -152,7 +152,7 @@ class ArrayStackTest {
     @Test
     void testToStringFilledStack() {
         stack = new ArrayStack();
-        String expectedToString = "[A, B, C]";
+        String expectedToString = "[C, B, A]";
         stack.push("A");
         stack.push("B");
         stack.push("C");
@@ -189,9 +189,9 @@ class ArrayStackTest {
         }
 
         assertEquals(stack.size(), result.size());
-        assertEquals(stack.pop(), result.pop());
-        assertEquals(stack.pop(), result.pop());
-        assertEquals(stack.pop(), result.pop());
+        assertEquals("A", result.pop());
+        assertEquals("B", result.pop());
+        assertEquals("C", result.pop());
     }
 
     @Test
@@ -243,7 +243,24 @@ class ArrayStackTest {
         }
 
         assertEquals(stack.size(), result.size());
-        assertEquals(stack.pop(), result.pop());
-        assertEquals(stack.pop(), result.pop());
+        assertEquals("A", result.pop());
+        assertEquals("B", result.pop());
+    }
+
+    @Test
+    void testIteratorRemoveMethod() {
+        stack = new ArrayStack();
+        stack.push("A");
+        stack.push("B");
+        stack.push("C");
+
+        Iterator iterator = stack.iterator();
+        iterator.next();
+        iterator.remove();
+
+        assertEquals(2, stack.size());
+        assertEquals(stack.peek(), iterator.next());
+        iterator.next();
+        assertFalse(iterator.hasNext());
     }
 }

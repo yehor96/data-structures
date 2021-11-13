@@ -92,5 +92,12 @@ public class LinkedStack extends AbstractStack {
             counter++;
             return next.getValue();
         }
+
+        @Override
+        public void remove() {
+            LinkedStack.this.pop();
+            counter = 0;
+            current = head;
+        }
     }
 }
