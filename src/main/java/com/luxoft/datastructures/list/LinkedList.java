@@ -74,29 +74,23 @@ public class LinkedList extends AbstractList {
         verifyIndex(index);
         verifyNotNull(value);
 
-        Node newNode = new Node(value);
-        Node oldNode = head;
+        Object oldValue = null;
         if (size == 1) {
+            Node newNode = new Node(value);
             tail = newNode;
             head = newNode;
         } else if (index == 0) {
-            head.next.prev = newNode;
-            newNode.next = head.next;
-            head = newNode;
+            oldValue = head.getValue();
+            head.setValue(value);
         } else if (index == size - 1) {
-            oldNode = tail;
-            tail.prev.next = newNode;
-            newNode.prev = tail.prev;
-            tail = newNode;
+            oldValue = tail.getValue();
+            tail.setValue(value);
         } else {
-            oldNode = getNodeAt(index);
-
-            oldNode.prev.next = newNode;
-            oldNode.next.prev = newNode;
-            newNode.prev = oldNode.prev;
-            newNode.next = oldNode.next;
+            Node oldNode = getNodeAt(index);
+            oldValue = oldNode.getValue();
+            oldNode.setValue(value);
         }
-        return oldNode;
+        return oldValue;
     }
 
     @Override
