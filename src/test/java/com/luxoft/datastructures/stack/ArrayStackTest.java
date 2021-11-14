@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class ArrayStackTest {
 
-    private Stack stack;
+    private Stack<String> stack;
 
     @Test
     void testPush() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
 
@@ -27,7 +27,7 @@ class ArrayStackTest {
 
     @Test
     void testPopReturnsLastAddedElement() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
 
@@ -36,7 +36,7 @@ class ArrayStackTest {
 
     @Test
     void testPopRemovesElement() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
 
@@ -48,7 +48,7 @@ class ArrayStackTest {
 
     @Test
     void testPopOnEmptyStack() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
 
         try {
             stack.pop();
@@ -61,7 +61,7 @@ class ArrayStackTest {
 
     @Test
     void testPeekReturnsLastAddedElement() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
 
@@ -70,7 +70,7 @@ class ArrayStackTest {
 
     @Test
     void testPeekReturnsLastAddedElementAfterPop() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
 
@@ -81,7 +81,7 @@ class ArrayStackTest {
 
     @Test
     void testPeekOnEmptyStack() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
 
         try {
             stack.peek();
@@ -94,7 +94,7 @@ class ArrayStackTest {
 
     @Test
     void testStackIsEmptyAfterAllElementsPopped() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
 
         stack.pop();
@@ -104,7 +104,7 @@ class ArrayStackTest {
 
     @Test
     void testStackSizeIncreasesAndDecreasesAfterPushAndPop() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         assertEquals(0, stack.size());
 
         stack.push("A");
@@ -116,7 +116,7 @@ class ArrayStackTest {
 
     @Test
     void testClearStack() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
         stack.push("C");
@@ -130,7 +130,7 @@ class ArrayStackTest {
 
     @Test
     void testContains() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
 
         assertTrue(stack.contains("A"));
@@ -141,7 +141,7 @@ class ArrayStackTest {
 
     @Test
     void testToStringEmptyStack() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         String expectedToString = "[]";
 
         String actualToString = stack.toString();
@@ -151,7 +151,7 @@ class ArrayStackTest {
 
     @Test
     void testToStringFilledStack() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         String expectedToString = "[C, B, A]";
         stack.push("A");
         stack.push("B");
@@ -164,7 +164,7 @@ class ArrayStackTest {
 
     @Test
     void testStackOverflow() {
-        stack = new ArrayStack(2);
+        stack = new ArrayStack<>(2);
         stack.push("A");
         stack.push("B");
         stack.push("C");
@@ -178,13 +178,13 @@ class ArrayStackTest {
 
     @Test
     void testIteratorFullForeach() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
         stack.push("C");
-        Stack result = new ArrayStack();
+        Stack<String> result = new ArrayStack<>();
 
-        for (Object o : stack) {
+        for (String o : stack) {
             result.push(o);
         }
 
@@ -196,10 +196,10 @@ class ArrayStackTest {
 
     @Test
     void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
 
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
         iterator.next();
         try {
             iterator.next();
@@ -212,33 +212,33 @@ class ArrayStackTest {
 
     @Test
     void testIteratorReturnsTrueWhenNextElementExists() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
 
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
 
         assertTrue(iterator.hasNext());
     }
 
     @Test
     void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
 
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
 
         assertFalse(iterator.hasNext());
     }
 
     @Test
     void testIteratorAfterRemovingElement() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         stack.push("A");
         stack.push("B");
         stack.push("C");
-        Stack result = new ArrayStack();
+        Stack<String> result = new ArrayStack<>();
 
         stack.pop();
-        for (Object o : stack) {
+        for (String o : stack) {
             result.push(o);
         }
 
@@ -249,13 +249,13 @@ class ArrayStackTest {
 
     @Test
     void testIteratorRemoveMethod() {
-        stack = new ArrayStack();
+        stack = new ArrayStack<>();
         String expectedToString = "[C, A]";
         stack.push("A");
         stack.push("B");
         stack.push("C");
 
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
         iterator.next();
         iterator.next();
         iterator.remove();

@@ -2,14 +2,14 @@ package com.luxoft.datastructures.stack;
 
 // ADT -> Abstract Data Type
 // LIFO -> last-in-fist-out
-public interface Stack extends Iterable {
-    void push(Object value);
+public interface Stack<T> extends Iterable<T> {
+    void push(T value);
 
-    Object pop();
+    T pop();
 
-    Object peek();
+    T peek();
 
-    boolean contains(Object value);
+    boolean contains(T value);
 
     int size();
 

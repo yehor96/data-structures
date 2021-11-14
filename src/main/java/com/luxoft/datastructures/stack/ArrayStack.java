@@ -3,39 +3,40 @@ package com.luxoft.datastructures.stack;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ArrayStack extends AbstractStack {
+public class ArrayStack<T> extends AbstractStack<T> {
 
     private static final int DEFAULT_CAPACITY = 16;
 
-    private Object[] array;
+    private T[] array;
 
     public ArrayStack() {
         this(DEFAULT_CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayStack(int capacity) {
-        array = new Object[capacity];
+        array = (T[]) new Object[capacity];
     }
 
     @Override
-    public void push(Object value) {
+    public void push(T value) {
         ensureCapacity();
         array[size++] = value;
     }
 
     @Override
-    public Object pop() {
+    public T pop() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to pop on empty stack");
         }
-        Object element = peek();
+        T element = peek();
         array[size] = null;
         size--;
         return element;
     }
 
     @Override
-    public Object peek() {
+    public T peek() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to peek on empty stack");
         }
@@ -43,7 +44,7 @@ public class ArrayStack extends AbstractStack {
     }
 
     @Override
-    public boolean contains(Object value) {
+    public boolean contains(T value) {
         if (Objects.isNull(value)) {
             return false;
         }
@@ -64,13 +65,14 @@ public class ArrayStack extends AbstractStack {
     }
 
     @Override
-    public java.util.Iterator iterator() {
+    public java.util.Iterator<T> iterator() {
         return new Iterator();
     }
 
+    @SuppressWarnings("unchecked")
     private void ensureCapacity() {
         if (size == array.length) {
-            Object[] newArray = new Object[(int) (array.length * 1.5)];
+            T[] newArray = (T[]) new Object[(int) (array.length * 1.5)];
             System.arraycopy(array, 0, newArray, 0, array.length);
             array = newArray;
         }
@@ -84,7 +86,7 @@ public class ArrayStack extends AbstractStack {
         size--;
     }
 
-    private class Iterator implements java.util.Iterator {
+    private class Iterator implements java.util.Iterator<T> {
 
         private int counter = size;
         private boolean isRemovable = false;
@@ -95,7 +97,7 @@ public class ArrayStack extends AbstractStack {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext()) {
                 String errorMessage = String.format("Actual size of %d is reached", size());
                 throw new NoSuchElementException(errorMessage);

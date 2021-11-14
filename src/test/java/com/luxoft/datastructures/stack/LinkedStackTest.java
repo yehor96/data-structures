@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class LinkedStackTest {
 
-    private Stack stack;
+    private Stack<String> stack;
 
     @BeforeEach
     void beforeEach() {
-        stack = new LinkedStack();
+        stack = new LinkedStack<>();
     }
 
     @Test
@@ -174,9 +174,9 @@ class LinkedStackTest {
         stack.push("A");
         stack.push("B");
         stack.push("C");
-        Stack result = new LinkedStack();
+        Stack<String> result = new LinkedStack<>();
 
-        for (Object o : stack) {
+        for (String o : stack) {
             result.push(o);
         }
 
@@ -190,7 +190,7 @@ class LinkedStackTest {
     void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
         stack.push("A");
 
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
         iterator.next();
         try {
             iterator.next();
@@ -205,14 +205,14 @@ class LinkedStackTest {
     void testIteratorReturnsTrueWhenNextElementExists() {
         stack.push("A");
 
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
 
         assertTrue(iterator.hasNext());
     }
 
     @Test
     void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
 
         assertFalse(iterator.hasNext());
     }
@@ -222,10 +222,10 @@ class LinkedStackTest {
         stack.push("A");
         stack.push("B");
         stack.push("C");
-        Stack result = new LinkedStack();
+        Stack<String> result = new LinkedStack<>();
 
         stack.pop();
-        for (Object o : stack) {
+        for (String o : stack) {
             result.push(o);
         }
 
@@ -241,7 +241,7 @@ class LinkedStackTest {
         stack.push("B");
         stack.push("C");
 
-        Iterator iterator = stack.iterator();
+        Iterator<String> iterator = stack.iterator();
         iterator.next();
         iterator.next();
         iterator.remove();

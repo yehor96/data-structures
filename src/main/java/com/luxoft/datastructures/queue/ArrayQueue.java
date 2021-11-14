@@ -3,9 +3,9 @@ package com.luxoft.datastructures.queue;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ArrayQueue extends AbstractQueue {
+public class ArrayQueue<T> extends AbstractQueue<T> {
 
-    private Object[] array;
+    private T[] array;
     private int head = 0;
     private int tail = 0;
 
@@ -13,22 +13,23 @@ public class ArrayQueue extends AbstractQueue {
         this(100);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayQueue(int size) {
-        array = new Object[size];
+        array = (T[]) new Object[size];
     }
 
     @Override
-    public void enqueue(Object value) {
+    public void enqueue(T value) {
         ensureCapacity();
         array[tail++] = value;
     }
 
     @Override
-    public Object dequeue() {
+    public T dequeue() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to dequeue on empty queue");
         }
-        Object firstElement = array[head];
+        T firstElement = array[head];
         array[head] = null;
         head++;
         if (isEmpty()) {
@@ -38,7 +39,7 @@ public class ArrayQueue extends AbstractQueue {
     }
 
     @Override
-    public Object peek() {
+    public T peek() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to peek on empty queue");
         }
@@ -56,7 +57,7 @@ public class ArrayQueue extends AbstractQueue {
     }
 
     @Override
-    public boolean contains(Object value) {
+    public boolean contains(T value) {
         if (Objects.isNull(value)) {
             return false;
         }
@@ -78,9 +79,10 @@ public class ArrayQueue extends AbstractQueue {
         tail = 0;
     }
 
+    @SuppressWarnings("unchecked")
     private void ensureCapacity() {
         if (tail == array.length) {
-            Object[] newArray = new Object[(int) (array.length * 1.5)];
+            T[] newArray = (T[]) new Object[(int) (array.length * 1.5)];
             System.arraycopy(array, head, newArray, 0, size());
             array = newArray;
             head = 0;
@@ -97,11 +99,11 @@ public class ArrayQueue extends AbstractQueue {
     }
 
     @Override
-    public java.util.Iterator iterator() {
+    public java.util.Iterator<T> iterator() {
         return new Iterator();
     }
 
-    private class Iterator implements java.util.Iterator {
+    private class Iterator implements java.util.Iterator<T> {
 
         private int current = head - 1;
         private boolean isRemovable = false;
@@ -112,7 +114,7 @@ public class ArrayQueue extends AbstractQueue {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext()) {
                 String errorMessage = String.format("Actual size of %d is reached", size());
                 throw new NoSuchElementException(errorMessage);

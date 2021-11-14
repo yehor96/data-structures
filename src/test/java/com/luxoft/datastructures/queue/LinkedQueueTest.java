@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class LinkedQueueTest {
 
-    private Queue queue;
+    private Queue<String> queue;
 
     @BeforeEach
     void beforeEach() {
-        queue = new LinkedQueue();
+        queue = new LinkedQueue<>();
     }
 
     @Test
@@ -174,9 +174,9 @@ class LinkedQueueTest {
         queue.enqueue("A");
         queue.enqueue("B");
         queue.enqueue("C");
-        Queue result = new LinkedQueue();
+        Queue<String> result = new LinkedQueue<>();
 
-        for (Object o : queue) {
+        for (String o : queue) {
             result.enqueue(o);
         }
 
@@ -190,7 +190,7 @@ class LinkedQueueTest {
     void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
         queue.enqueue("A");
 
-        Iterator iterator = queue.iterator();
+        Iterator<String> iterator = queue.iterator();
         iterator.next();
         try {
             iterator.next();
@@ -205,14 +205,14 @@ class LinkedQueueTest {
     void testIteratorReturnsTrueWhenNextElementExists() {
         queue.enqueue("A");
 
-        Iterator iterator = queue.iterator();
+        Iterator<String> iterator = queue.iterator();
 
         assertTrue(iterator.hasNext());
     }
 
     @Test
     void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
-        Iterator iterator = queue.iterator();
+        Iterator<String> iterator = queue.iterator();
 
         assertFalse(iterator.hasNext());
     }
@@ -222,10 +222,10 @@ class LinkedQueueTest {
         queue.enqueue("A");
         queue.enqueue("B");
         queue.enqueue("C");
-        Queue result = new ArrayQueue();
+        Queue<String> result = new ArrayQueue<>();
 
         queue.dequeue();
-        for (Object o : queue) {
+        for (String o : queue) {
             result.enqueue(o);
         }
 
@@ -241,7 +241,7 @@ class LinkedQueueTest {
         queue.enqueue("B");
         queue.enqueue("C");
 
-        Iterator iterator = queue.iterator();
+        Iterator<String> iterator = queue.iterator();
         iterator.next();
         iterator.next();
         iterator.remove();

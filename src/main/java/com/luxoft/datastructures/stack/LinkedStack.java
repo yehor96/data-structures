@@ -5,13 +5,13 @@ import com.luxoft.datastructures.Node;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class LinkedStack extends AbstractStack {
+public class LinkedStack<T> extends AbstractStack<T> {
 
-    private Node head;
+    private Node<T> head;
 
     @Override
-    public void push(Object value) {
-        Node newNode = new Node(value);
+    public void push(T value) {
+        Node<T> newNode = new Node<>(value);
         if (size != 0) {
             newNode.next = head;
         }
@@ -20,12 +20,12 @@ public class LinkedStack extends AbstractStack {
     }
 
     @Override
-    public Object pop() {
+    public T pop() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to pop on empty stack");
         }
 
-        Node popped = head;
+        Node<T> popped = head;
         if (size != 1) {
             head = head.next;
         } else {
@@ -36,7 +36,7 @@ public class LinkedStack extends AbstractStack {
     }
 
     @Override
-    public Object peek() {
+    public T peek() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to peek on empty stack");
         }
@@ -44,12 +44,12 @@ public class LinkedStack extends AbstractStack {
     }
 
     @Override
-    public boolean contains(Object value) {
+    public boolean contains(T value) {
         if (Objects.isNull(value)) {
             return false;
         }
 
-        Node current = head;
+        Node<T> current = head;
         for (int i = 0; i < size; i++) {
             if (current.getValue().equals(value)) {
                 return true;
@@ -66,12 +66,12 @@ public class LinkedStack extends AbstractStack {
     }
 
     @Override
-    public java.util.Iterator iterator() {
+    public java.util.Iterator<T> iterator() {
         return new Iterator();
     }
 
     private void removeAt(int index) {
-        Node current = head;
+        Node<T> current = head;
         if (size == 1) {
             clear();
         } else if (index == 0) {
@@ -84,16 +84,16 @@ public class LinkedStack extends AbstractStack {
             if (index == size - 1) {
                 current.next = null;
             } else {
-                Node oldNode = current.next;
+                Node<T> oldNode = current.next;
                 current.next = oldNode.next;
             }
         }
         size--;
     }
 
-    private class Iterator implements java.util.Iterator {
+    private class Iterator implements java.util.Iterator<T> {
 
-        private Node nextElement = head;
+        private Node<T> nextElement = head;
         private int counter = -1;
         private boolean isRemovable = false;
 
@@ -103,13 +103,13 @@ public class LinkedStack extends AbstractStack {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext()) {
                 String errorMessage = String.format("Actual size of %d is reached", size);
                 throw new NoSuchElementException(errorMessage);
             }
 
-            Object value = nextElement.getValue();
+            T value = nextElement.getValue();
             nextElement = nextElement.next;
             counter++;
             isRemovable = true;

@@ -2,12 +2,13 @@ package com.luxoft.datastructures.list;
 
 import java.util.NoSuchElementException;
 
-public class ArrayList extends AbstractList {
+public class ArrayList<T> extends AbstractList<T> {
 
-    private Object[] array;
+    private T[] array;
 
+    @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = new Object[capacity];
+        array = (T[]) new Object[capacity];
     }
 
     public ArrayList() {
@@ -15,7 +16,7 @@ public class ArrayList extends AbstractList {
     }
 
     @Override
-    public void add(Object value, int index) {
+    public void add(T value, int index) {
         verifyIndexAdd(index);
         verifyNotNull(value);
         ensureCapacity();
@@ -28,10 +29,10 @@ public class ArrayList extends AbstractList {
     }
 
     @Override
-    public Object remove(int index) {
+    public T remove(int index) {
         verifyIndex(index);
 
-        Object removed = array[index];
+        T removed = array[index];
         System.arraycopy(array, index + 1, array, index, size - index);
         array[size - 1] = null;
         size--;
@@ -39,17 +40,17 @@ public class ArrayList extends AbstractList {
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         verifyIndex(index);
         return array[index];
     }
 
     @Override
-    public Object set(Object value, int index) {
+    public T set(T value, int index) {
         verifyIndex(index);
         verifyNotNull(value);
 
-        Object replaced = array[index];
+        T replaced = array[index];
         array[index] = value;
         return replaced;
     }
@@ -63,7 +64,7 @@ public class ArrayList extends AbstractList {
     }
 
     @Override
-    public int indexOf(Object value) {
+    public int indexOf(T value) {
         if (value == null) {
             return -1;
         }
@@ -77,7 +78,7 @@ public class ArrayList extends AbstractList {
     }
 
     @Override
-    public int lastIndexOf(Object value) {
+    public int lastIndexOf(T value) {
         if (value == null) {
             return -1;
         }
@@ -92,19 +93,20 @@ public class ArrayList extends AbstractList {
     }
 
     @Override
-    public java.util.Iterator iterator() {
+    public java.util.Iterator<T> iterator() {
         return new Iterator();
     }
 
+    @SuppressWarnings("unchecked")
     private void ensureCapacity() {
         if (size == array.length) {
-            Object[] newArray = new Object[(int) (array.length * 1.5)];
+            T[] newArray = (T[]) new Object[(int) (array.length * 1.5)];
             System.arraycopy(array, 0, newArray, 0, size);
             array = newArray;
         }
     }
 
-    private class Iterator implements java.util.Iterator {
+    private class Iterator implements java.util.Iterator<T> {
 
         private boolean isRemovable = false;
         private int counter = -1;
@@ -115,7 +117,7 @@ public class ArrayList extends AbstractList {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext()) {
                 String errorMessage = String.format(NO_SUCH_ELEMENT_ERROR_MESSAGE, size, counter + 1);
                 throw new NoSuchElementException(errorMessage);

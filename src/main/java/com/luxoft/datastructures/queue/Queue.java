@@ -2,18 +2,18 @@ package com.luxoft.datastructures.queue;
 
 // FIFO
 //
-public interface Queue extends Iterable {
-    void enqueue(Object value);
+public interface Queue<T> extends Iterable<T> {
+    void enqueue(T value);
 
-    Object dequeue();
+    T dequeue();
 
-    Object peek();
+    T peek();
 
     int size();
 
     boolean isEmpty();
 
-    boolean contains(Object value);
+    boolean contains(T value);
 
     void clear();
 

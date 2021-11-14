@@ -4,18 +4,18 @@ import com.luxoft.datastructures.Node;
 
 import java.util.NoSuchElementException;
 
-public class LinkedList extends AbstractList {
+public class LinkedList<T> extends AbstractList<T> {
 
-    private Node head;
-    private Node tail;
+    private Node<T> head;
+    private Node<T> tail;
 
     @Override
-    public void add(Object value, int index) {
+    public void add(T value, int index) {
         verifyIndexAdd(index);
         verifyNotNull(value);
 
-        Node current = head;
-        Node newNode = new Node(value);
+        Node<T> current = head;
+        Node<T> newNode = new Node<>(value);
         if (size == 0) {
             head = newNode;
             tail = newNode;
@@ -40,9 +40,9 @@ public class LinkedList extends AbstractList {
     }
 
     @Override
-    public Object remove(int index) {
+    public T remove(int index) {
         verifyIndex(index);
-        Node oldNode = head;
+        Node<T> oldNode = head;
         if (size == 1) {
             clear();
         } else if (index == 0) {
@@ -63,20 +63,20 @@ public class LinkedList extends AbstractList {
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         verifyIndex(index);
-        Node current = getNodeAt(index);
+        Node<T> current = getNodeAt(index);
         return current.getValue();
     }
 
     @Override
-    public Object set(Object value, int index) {
+    public T set(T value, int index) {
         verifyIndex(index);
         verifyNotNull(value);
 
-        Object oldValue = null;
+        T oldValue = null;
         if (size == 1) {
-            Node newNode = new Node(value);
+            Node<T> newNode = new Node<>(value);
             tail = newNode;
             head = newNode;
         } else if (index == 0) {
@@ -86,7 +86,7 @@ public class LinkedList extends AbstractList {
             oldValue = tail.getValue();
             tail.setValue(value);
         } else {
-            Node oldNode = getNodeAt(index);
+            Node<T> oldNode = getNodeAt(index);
             oldValue = oldNode.getValue();
             oldNode.setValue(value);
         }
@@ -101,12 +101,12 @@ public class LinkedList extends AbstractList {
     }
 
     @Override
-    public int indexOf(Object value) {
+    public int indexOf(T value) {
         if (value == null) {
             return -1;
         }
 
-        Node current = head;
+        Node<T> current = head;
         for (int i = 0; i < size; i++) {
             if (current.getValue().equals(value)) {
                 return i;
@@ -117,12 +117,12 @@ public class LinkedList extends AbstractList {
     }
 
     @Override
-    public int lastIndexOf(Object value) {
+    public int lastIndexOf(T value) {
         if (value == null) {
             return -1;
         }
 
-        Node current = tail;
+        Node<T> current = tail;
         for (int i = size - 1; i >= 0; i--) {
             if (current.getValue().equals(value)) {
                 return i;
@@ -132,8 +132,8 @@ public class LinkedList extends AbstractList {
         return -1;
     }
 
-    private Node getNodeAt(int index) {
-        Node current;
+    private Node<T> getNodeAt(int index) {
+        Node<T> current;
         if (size / 2 <= index) {
             current = head;
             for (int i = 0; i < index; i++) {
@@ -149,15 +149,15 @@ public class LinkedList extends AbstractList {
     }
 
     @Override
-    public java.util.Iterator iterator() {
+    public java.util.Iterator<T> iterator() {
         return new Iterator();
     }
 
-    private class Iterator implements java.util.Iterator {
+    private class Iterator implements java.util.Iterator<T> {
 
         private boolean isRemovable = false;
         private int counter = -1;
-        private Node nextElement = head;
+        private Node<T> nextElement = head;
 
         @Override
         public boolean hasNext() {
@@ -165,13 +165,13 @@ public class LinkedList extends AbstractList {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext()) {
                 String errorMessage = String.format(NO_SUCH_ELEMENT_ERROR_MESSAGE, size, counter + 1);
                 throw new NoSuchElementException(errorMessage);
             }
 
-            Object value = nextElement.getValue();
+            T value = nextElement.getValue();
             nextElement = nextElement.next;
             counter++;
             isRemovable = true;

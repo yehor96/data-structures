@@ -5,19 +5,19 @@ import com.luxoft.datastructures.Node;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class LinkedQueue extends AbstractQueue {
+public class LinkedQueue<T> extends AbstractQueue<T> {
 
-    private Node head;
-    private Node tail;
+    private Node<T> head;
+    private Node<T> tail;
     private int size;
 
     @Override
-    public void enqueue(Object value) {
+    public void enqueue(T value) {
         if (Objects.isNull(value)) {
             throw new IllegalArgumentException("Null values are not allowed in the queue");
         }
 
-        Node newNode = new Node(value);
+        Node<T> newNode = new Node<>(value);
         if (isEmpty()) {
             head = newNode;
             tail = newNode;
@@ -26,7 +26,7 @@ public class LinkedQueue extends AbstractQueue {
             newNode.next = head;
             tail = newNode;
         } else {
-            Node current = tail;
+            Node<T> current = tail;
             tail = newNode;
             current.prev = newNode;
             newNode.next = current;
@@ -35,11 +35,11 @@ public class LinkedQueue extends AbstractQueue {
     }
 
     @Override
-    public Object dequeue() {
+    public T dequeue() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to dequeue on empty queue");
         }
-        Node dequeueNode = head;
+        Node<T> dequeueNode = head;
 
         if (size == 1) {
             head = null;
@@ -54,7 +54,7 @@ public class LinkedQueue extends AbstractQueue {
     }
 
     @Override
-    public Object peek() {
+    public T peek() {
         if (isEmpty()) {
             throw new IllegalStateException("Unable to peek on empty queue");
         }
@@ -72,8 +72,8 @@ public class LinkedQueue extends AbstractQueue {
     }
 
     @Override
-    public boolean contains(Object value) {
-        Node current = head;
+    public boolean contains(T value) {
+        Node<T> current = head;
         for (int i = 0; i < size; i++) {
             if (current.getValue().equals(value)) {
                 return true;
@@ -89,7 +89,7 @@ public class LinkedQueue extends AbstractQueue {
     }
 
     @Override
-    public java.util.Iterator iterator() {
+    public java.util.Iterator<T> iterator() {
         return new Iterator();
     }
 
@@ -103,7 +103,7 @@ public class LinkedQueue extends AbstractQueue {
             tail.next.prev = null;
             tail = tail.next;
         } else {
-            Node oldNode = getNodeAt(index);
+            Node<T> oldNode = getNodeAt(index);
 
             oldNode.next.prev = oldNode.prev;
             oldNode.prev.next = oldNode.next;
@@ -111,8 +111,8 @@ public class LinkedQueue extends AbstractQueue {
         size--;
     }
 
-    private Node getNodeAt(int index) {
-        Node current;
+    private Node<T> getNodeAt(int index) {
+        Node<T> current;
         if (size / 2 <= index) {
             current = head;
             for (int i = 0; i < index; i++) {
@@ -127,9 +127,9 @@ public class LinkedQueue extends AbstractQueue {
         return current;
     }
 
-    private class Iterator implements java.util.Iterator {
+    private class Iterator implements java.util.Iterator<T> {
 
-        private Node nextElement = head;
+        private Node<T> nextElement = head;
         private int counter = -1;
         private boolean isRemovable = false;
 
@@ -139,13 +139,13 @@ public class LinkedQueue extends AbstractQueue {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext()) {
                 String errorMessage = String.format("Actual size of %d is reached", size);
                 throw new NoSuchElementException(errorMessage);
             }
 
-            Object value = nextElement.getValue();
+            T value = nextElement.getValue();
             nextElement = nextElement.prev;
             counter++;
             isRemovable = true;

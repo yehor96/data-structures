@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class LinkedListTest {
 
-    private List list;
+    private List<String> list;
 
     @BeforeEach
     void beforeEach() {
-        list = new LinkedList();
+        list = new LinkedList<>();
     }
 
     @Test
@@ -458,12 +458,11 @@ class LinkedListTest {
 
     @Test
     void testIteratorFullForeach() {
-        List list = new LinkedList();
         list.add("A");
         list.add("B");
         list.add("C");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertEquals(3, list.size());
         assertEquals(list.get(0), iterator.next());
@@ -474,10 +473,9 @@ class LinkedListTest {
 
     @Test
     void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
-        List list = new LinkedList();
         list.add("A");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
         iterator.next();
         try {
             iterator.next();
@@ -491,32 +489,28 @@ class LinkedListTest {
 
     @Test
     void testIteratorReturnsTrueWhenNextElementExists() {
-        List list = new LinkedList();
         list.add("A");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertTrue(iterator.hasNext());
     }
 
     @Test
     void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
-        List list = new LinkedList();
-
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertFalse(iterator.hasNext());
     }
 
     @Test
     void testIteratorAfterRemovingElement() {
-        List list = new LinkedList();
         list.add("A");
         list.add("B");
         list.add("C");
 
         list.remove(0);
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertEquals(2, list.size());
         assertEquals(list.get(0), iterator.next());
@@ -526,13 +520,12 @@ class LinkedListTest {
 
     @Test
     void testIteratorRemoveMethod() {
-        List list = new LinkedList();
         String expectedToString = "[A, C]";
         list.add("A");
         list.add("B");
         list.add("C");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
         iterator.next();
         iterator.next();
         iterator.remove();

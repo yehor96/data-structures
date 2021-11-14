@@ -1,20 +1,20 @@
 package com.luxoft.datastructures;
 
-public class Node {
+public class Node<T> {
 
-    private Object value;
-    public Node next;
-    public Node prev;
+    private T value;
+    public Node<T> next;
+    public Node<T> prev;
 
-    public Node(Object value) {
+    public Node(T value) {
         this.value = value;
     }
 
-    public Object getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = value;
     }
 }

@@ -16,7 +16,7 @@ class ArrayListTest {
 
     @Test
     void testAddElement() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         list.add("A");
 
@@ -26,7 +26,7 @@ class ArrayListTest {
 
     @Test
     void testAddDuplicateElement() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         list.add("A");
 
@@ -39,7 +39,7 @@ class ArrayListTest {
 
     @Test
     void testAddElements() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         list.add("A");
         list.add("B");
@@ -51,7 +51,7 @@ class ArrayListTest {
 
     @Test
     void testAddElementsAndAssertPositions() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         list.add("A");
         list.add("B");
@@ -63,7 +63,7 @@ class ArrayListTest {
 
     @Test
     void testAddElementAtFirstIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -77,7 +77,7 @@ class ArrayListTest {
 
     @Test
     void testAddElementAtLastIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -91,7 +91,7 @@ class ArrayListTest {
 
     @Test
     void testAddElementAtMiddleIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -105,7 +105,7 @@ class ArrayListTest {
 
     @Test
     void testAddElementsAtIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -121,7 +121,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionThrownWhenAddAtIndexLargerThanSize() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 2);
         list.add("A");
         list.add("B");
@@ -137,7 +137,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionThrownWhenAddAtInvalidIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 2);
         list.add("A");
         list.add("B");
@@ -153,7 +153,7 @@ class ArrayListTest {
 
     @Test
     void testRemoveAtFirstIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
         list.add("C");
@@ -168,7 +168,7 @@ class ArrayListTest {
 
     @Test
     void testRemoveAtLastIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
         list.add("C");
@@ -183,7 +183,7 @@ class ArrayListTest {
 
     @Test
     void testRemoveAddRemoveAgain() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -202,7 +202,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionRemoveInvalidInvalidIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 2);
 
         list.add("A");
@@ -220,7 +220,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionRemoveIndexLargerThanSize() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 2);
         list.add("A");
         list.add("B");
@@ -237,7 +237,7 @@ class ArrayListTest {
 
     @Test
     void testGetIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -251,7 +251,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionGetInvalidIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 1);
         list.add("A");
         list.add("B");
@@ -267,7 +267,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionGetIndexLargerThanSize() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 1);
         list.add("A");
         list.add("B");
@@ -283,7 +283,7 @@ class ArrayListTest {
 
     @Test
     void testSetFirstElement() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -296,7 +296,7 @@ class ArrayListTest {
 
     @Test
     void testSetLastElement() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -309,7 +309,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionSetInvalidIndex() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, -1, 1);
         list.add("A");
         list.add("B");
@@ -325,7 +325,7 @@ class ArrayListTest {
 
     @Test
     void testExceptionSetIndexLargerThanSize() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedMessage = String.format(INVALID_RANGE_EXCEPTION_MESSAGE, 5, 1);
         list.add("A");
         list.add("B");
@@ -341,7 +341,7 @@ class ArrayListTest {
 
     @Test
     void testClearAndEmpty() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -354,7 +354,7 @@ class ArrayListTest {
 
     @Test
     void testAddAfterClear() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -372,7 +372,7 @@ class ArrayListTest {
 
     @Test
     void testSize() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -385,7 +385,7 @@ class ArrayListTest {
 
     @Test
     void testContains() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -403,7 +403,7 @@ class ArrayListTest {
 
     @Test
     void testIndexOf() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
         list.add("A");
@@ -416,7 +416,7 @@ class ArrayListTest {
 
     @Test
     void testLastIndexOf() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
         list.add("A");
@@ -429,14 +429,14 @@ class ArrayListTest {
 
     @Test
     void testEmptyToString() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         assertEquals("[]", list.toString());
     }
 
     @Test
     void testFilledToString() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
 
@@ -445,7 +445,7 @@ class ArrayListTest {
 
     @Test
     void testCapacity() {
-        List list = new ArrayList(2);
+        List<String> list = new ArrayList<>(2);
         list.add("A");
         list.add("B");
 
@@ -459,12 +459,12 @@ class ArrayListTest {
 
     @Test
     void testIteratorFullForeach() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
         list.add("C");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertEquals(3, list.size());
         assertEquals(list.get(0), iterator.next());
@@ -475,10 +475,10 @@ class ArrayListTest {
 
     @Test
     void testIteratorThrowsExceptionWhenAccessingNextAfterLastElement() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
         iterator.next();
         try {
             iterator.next();
@@ -492,32 +492,32 @@ class ArrayListTest {
 
     @Test
     void testIteratorReturnsTrueWhenNextElementExists() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertTrue(iterator.hasNext());
     }
 
     @Test
     void testIteratorReturnsFalseWhenNextElementDoesNotExist() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertFalse(iterator.hasNext());
     }
 
     @Test
     void testIteratorAfterRemovingElement() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("A");
         list.add("B");
         list.add("C");
 
         list.remove(0);
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
         assertEquals(2, list.size());
         assertEquals(list.get(0), iterator.next());
@@ -527,13 +527,13 @@ class ArrayListTest {
 
     @Test
     void testIteratorRemoveMethod() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String expectedToString = "[A, C]";
         list.add("A");
         list.add("B");
         list.add("C");
 
-        Iterator iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
         iterator.next();
         iterator.next();
         iterator.remove();

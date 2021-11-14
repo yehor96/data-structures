@@ -3,7 +3,7 @@ package com.luxoft.datastructures.list;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public abstract class AbstractList implements List {
+public abstract class AbstractList<T> implements List<T> {
 
     protected static final String NO_SUCH_ELEMENT_ERROR_MESSAGE = "Actual size [%d], index of next element [%d]";
     protected static final String NULL_PASSED_EXCEPTION_MESSAGE = "Null values are not allowed in the list";
@@ -13,7 +13,7 @@ public abstract class AbstractList implements List {
     protected int size = 0;
 
     @Override
-    public void add(Object value) {
+    public void add(T value) {
         add(value, size);
     }
 
@@ -28,14 +28,14 @@ public abstract class AbstractList implements List {
     }
 
     @Override
-    public boolean contains(Object value) {
+    public boolean contains(T value) {
         return indexOf(value) != -1;
     }
 
     @Override
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-        for (Object current : this) {
+        for (T current : this) {
             stringJoiner.add(String.valueOf(current));
         }
         return stringJoiner.toString();

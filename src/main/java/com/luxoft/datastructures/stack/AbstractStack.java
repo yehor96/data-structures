@@ -2,7 +2,7 @@ package com.luxoft.datastructures.stack;
 
 import java.util.StringJoiner;
 
-public abstract class AbstractStack implements Stack {
+public abstract class AbstractStack<T> implements Stack<T> {
 
     protected int size = 0;
 
@@ -19,7 +19,7 @@ public abstract class AbstractStack implements Stack {
     @Override
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-        for (Object current : this) {
+        for (T current : this) {
             stringJoiner.add(String.valueOf(current));
         }
         return stringJoiner.toString();
