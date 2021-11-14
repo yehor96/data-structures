@@ -76,13 +76,22 @@ public class ArrayStack extends AbstractStack {
         }
     }
 
+    private void removeByIndex(int index) {
+        if (index != size - 1) {
+            System.arraycopy(array, index + 1, array, index, size - index - 1);
+        }
+        array[size - 1] = null;
+        size--;
+    }
+
     private class Iterator implements java.util.Iterator {
 
-        private int counter = size - 1;
+        private int counter = size;
+        private boolean isRemovable = false;
 
         @Override
         public boolean hasNext() {
-            return counter >= 0;
+            return counter > 0;
         }
 
         @Override
@@ -91,13 +100,18 @@ public class ArrayStack extends AbstractStack {
                 String errorMessage = String.format("Actual size of %d is reached", size());
                 throw new NoSuchElementException(errorMessage);
             }
-            return array[counter--];
+            isRemovable = true;
+            return array[--counter];
         }
 
         @Override
         public void remove() {
-            ArrayStack.this.pop();
-            counter = size - 1;
+            if (!isRemovable) {
+                throw new IllegalStateException("Call next() before removing any elements");
+            }
+
+            removeByIndex(counter);
+            isRemovable = false;
         }
     }
 }

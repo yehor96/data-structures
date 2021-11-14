@@ -80,12 +80,20 @@ public class ArrayQueue extends AbstractQueue {
 
     private void ensureCapacity() {
         if (tail == array.length) {
-            Object[] newArray = new Object[(int)(array.length * 1.5)];
+            Object[] newArray = new Object[(int) (array.length * 1.5)];
             System.arraycopy(array, head, newArray, 0, size());
             array = newArray;
             head = 0;
             tail = array.length - 1;
         }
+    }
+
+    private void removeByIndex(int index) {
+        if (index != size() - 1) {
+            System.arraycopy(array, index + 1, array, index, size() - index - 1);
+        }
+        array[size() - 1] = null;
+        tail--;
     }
 
     @Override
@@ -95,11 +103,12 @@ public class ArrayQueue extends AbstractQueue {
 
     private class Iterator implements java.util.Iterator {
 
-        private int current = head;
+        private int current = head - 1;
+        private boolean isRemovable = false;
 
         @Override
         public boolean hasNext() {
-            return current < tail;
+            return current < tail - 1;
         }
 
         @Override
@@ -108,13 +117,20 @@ public class ArrayQueue extends AbstractQueue {
                 String errorMessage = String.format("Actual size of %d is reached", size());
                 throw new NoSuchElementException(errorMessage);
             }
-            return array[current++];
+            isRemovable = true;
+            return array[++current];
         }
 
         @Override
         public void remove() {
-            ArrayQueue.this.dequeue();
-            current = head;
+            if (!isRemovable) {
+                throw new IllegalStateException("Call next() before removing any elements");
+            }
+
+            removeByIndex(current);
+            current--;
+            isRemovable = false;
         }
     }
+
 }

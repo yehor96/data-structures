@@ -155,30 +155,36 @@ public class LinkedList extends AbstractList {
 
     private class Iterator implements java.util.Iterator {
 
-        private int counter = 0;
-        private Node pointer = head;
+        private boolean isRemovable = false;
+        private int counter = -1;
+        private Node nextElement = head;
 
         @Override
         public boolean hasNext() {
-            return counter < size;
+            return counter < size - 1;
         }
 
         @Override
         public Object next() {
             if (!hasNext()) {
-                String errorMessage = String.format(NO_SUCH_ELEMENT_ERROR_MESSAGE, size, counter);
+                String errorMessage = String.format(NO_SUCH_ELEMENT_ERROR_MESSAGE, size, counter + 1);
                 throw new NoSuchElementException(errorMessage);
             }
 
-            Object value = pointer.getValue();
-            pointer = pointer.next;
+            Object value = nextElement.getValue();
+            nextElement = nextElement.next;
             counter++;
+            isRemovable = true;
             return value;
         }
 
         @Override
         public void remove() {
-            LinkedList.this.remove(--counter);
+            if (!isRemovable) {
+                throw new IllegalStateException("Call next() before removing any elements");
+            }
+            LinkedList.this.remove(counter--);
+            isRemovable = false;
         }
     }
 }

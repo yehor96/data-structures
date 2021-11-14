@@ -250,18 +250,20 @@ class ArrayQueueTest {
     @Test
     void testIteratorRemoveMethod() {
         queue = new ArrayQueue();
+        String expectedToString = "[A, C]";
         queue.enqueue("A");
         queue.enqueue("B");
         queue.enqueue("C");
 
         Iterator iterator = queue.iterator();
         iterator.next();
+        iterator.next();
         iterator.remove();
 
         assertEquals(2, queue.size());
-        assertEquals(queue.peek(), iterator.next());
         iterator.next();
         assertFalse(iterator.hasNext());
+        assertEquals(expectedToString, queue.toString());
     }
 
 }

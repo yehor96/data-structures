@@ -70,14 +70,36 @@ public class LinkedStack extends AbstractStack {
         return new Iterator();
     }
 
+    private void removeAt(int index) {
+        Node current = head;
+        if (size == 1) {
+            clear();
+        } else if (index == 0) {
+            head = head.next;
+        } else {
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
+
+            if (index == size - 1) {
+                current.next = null;
+            } else {
+                Node oldNode = current.next;
+                current.next = oldNode.next;
+            }
+        }
+        size--;
+    }
+
     private class Iterator implements java.util.Iterator {
 
-        private int counter = 0;
-        Node current = head;
+        private Node nextElement = head;
+        private int counter = -1;
+        private boolean isRemovable = false;
 
         @Override
         public boolean hasNext() {
-            return counter < size;
+            return counter < size - 1;
         }
 
         @Override
@@ -87,17 +109,20 @@ public class LinkedStack extends AbstractStack {
                 throw new NoSuchElementException(errorMessage);
             }
 
-            Node next = current;
-            current = current.next;
+            Object value = nextElement.getValue();
+            nextElement = nextElement.next;
             counter++;
-            return next.getValue();
+            isRemovable = true;
+            return value;
         }
 
         @Override
         public void remove() {
-            LinkedStack.this.pop();
-            counter = 0;
-            current = head;
+            if (!isRemovable) {
+                throw new IllegalStateException("Call next() before removing any elements");
+            }
+            removeAt(counter--);
+            isRemovable = false;
         }
     }
 }

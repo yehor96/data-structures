@@ -93,14 +93,49 @@ public class LinkedQueue extends AbstractQueue {
         return new Iterator();
     }
 
+    private void removeAt(int index) {
+        if (size == 1) {
+            clear();
+        } else if (index == 0) {
+            head.prev.next = null;
+            head = head.prev;
+        } else if (index == size - 1) {
+            tail.next.prev = null;
+            tail = tail.next;
+        } else {
+            Node oldNode = getNodeAt(index);
+
+            oldNode.next.prev = oldNode.prev;
+            oldNode.prev.next = oldNode.next;
+        }
+        size--;
+    }
+
+    private Node getNodeAt(int index) {
+        Node current;
+        if (size / 2 <= index) {
+            current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.prev;
+            }
+        } else {
+            current = tail;
+            for (int i = 0; i < size - index - 1; i++) {
+                current = current.next;
+            }
+        }
+        return current;
+    }
+
     private class Iterator implements java.util.Iterator {
 
-        private Node pointer = head;
-        private int counter = 0;
+        private Node nextElement = head;
+        private int counter = -1;
+        private boolean isRemovable = false;
 
         @Override
         public boolean hasNext() {
-            return counter < size;
+            return counter < size - 1;
         }
 
         @Override
@@ -109,17 +144,22 @@ public class LinkedQueue extends AbstractQueue {
                 String errorMessage = String.format("Actual size of %d is reached", size);
                 throw new NoSuchElementException(errorMessage);
             }
-            Node current = pointer;
-            pointer = pointer.prev;
+
+            Object value = nextElement.getValue();
+            nextElement = nextElement.prev;
             counter++;
-            return current.getValue();
+            isRemovable = true;
+            return value;
         }
 
         @Override
         public void remove() {
-            LinkedQueue.this.dequeue();
-            counter = 0;
-            pointer = head;
+            if (!isRemovable) {
+                throw new IllegalStateException("Call next() before removing any elements");
+            }
+            removeAt(counter--);
+            isRemovable = false;
         }
     }
+
 }

@@ -527,17 +527,19 @@ class LinkedListTest {
     @Test
     void testIteratorRemoveMethod() {
         List list = new LinkedList();
+        String expectedToString = "[A, C]";
         list.add("A");
         list.add("B");
         list.add("C");
 
         Iterator iterator = list.iterator();
         iterator.next();
+        iterator.next();
         iterator.remove();
 
         assertEquals(2, list.size());
-        assertEquals(list.get(0), iterator.next());
-        assertEquals(list.get(1), iterator.next());
+        iterator.next();
         assertFalse(iterator.hasNext());
+        assertEquals(expectedToString, list.toString());
     }
 }
