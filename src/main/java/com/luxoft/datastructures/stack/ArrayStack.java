@@ -69,10 +69,11 @@ public class ArrayStack<T> extends AbstractStack<T> {
         return new Iterator();
     }
 
-    @SuppressWarnings("unchecked")
     private void ensureCapacity() {
         if (size == array.length) {
-            T[] newArray = (T[]) new Object[(int) (array.length * 1.5)];
+            @SuppressWarnings("unchecked")
+            T[] newArray = (T[]) new Object[(int) (array.length * 1.5 + 1)];
+
             System.arraycopy(array, 0, newArray, 0, array.length);
             array = newArray;
         }

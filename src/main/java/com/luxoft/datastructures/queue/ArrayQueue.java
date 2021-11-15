@@ -79,14 +79,15 @@ public class ArrayQueue<T> extends AbstractQueue<T> {
         tail = 0;
     }
 
-    @SuppressWarnings("unchecked")
     private void ensureCapacity() {
         if (tail == array.length) {
-            T[] newArray = (T[]) new Object[(int) (array.length * 1.5)];
+            @SuppressWarnings("unchecked")
+            T[] newArray = (T[]) new Object[(int) (array.length * 1.5 + 1)];
+
             System.arraycopy(array, head, newArray, 0, size());
             array = newArray;
             head = 0;
-            tail = array.length - 1;
+            tail = size();
         }
     }
 
